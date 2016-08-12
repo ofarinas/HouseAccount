@@ -1,0 +1,42 @@
+package com.example.controllers;
+
+
+import com.example.dto.UserAccountDTO;
+import com.example.entitys.UserAccount;
+import com.example.repository.UserRepository;
+import com.example.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController(value = "users")
+public class UserController {
+
+    private UserRepository userRepository;
+
+    @Autowired
+    public UserController(UserRepository userRepository) {
+
+        this.userRepository = userRepository;
+    }
+
+    @RequestMapping(value = "alles", method = RequestMethod.GET)
+    public String findAllUsers()
+    {
+        List<UserAccount> all = userRepository.findAll();
+        return new UserAccountDTO().getJsonUsserAccountList(all);
+    }
+
+    @RequestMapping(method = RequestMethod.GET ,value = "users/login")
+    public String login(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password) {
+        return String.valueOf(new UserService(userRepository).login(name,password));
+    }
+    @RequestMapping(method = RequestMethod.GET ,value = "users/user")
+    public String getUser(@RequestParam(value = "name") String name) {
+        return new UserService(userRepository).findUser(name);
+    }
+
+
+}
+
