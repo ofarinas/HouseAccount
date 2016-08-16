@@ -19,6 +19,9 @@ public class UserService {
         userAccountDTO = new UserAccountDTO();
     }
 
+    public String getAllUserAccount(){
+        return userAccountDTO.getJsonUsserAccountList(repository.findAll());
+    }
     public boolean login(String name, String passsword) {
         return getUser(name) != null ? getUser(name).getPassword().equals(passsword) : false;
     }

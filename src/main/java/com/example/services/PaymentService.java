@@ -1,23 +1,23 @@
 package com.example.services;
 
+import com.example.dto.PaymentDTO;
 import com.example.entitys.Payment;
-import com.example.entitys.UserAccount;
 import com.example.repository.PaymentRepository;
-
-import java.util.List;
 
 /**
  * Created by Osvaldo on 8/2/2016.
  */
 public class PaymentService {
     PaymentRepository paymentRepository;
+    PaymentDTO paymentDTO;
 
     public PaymentService(PaymentRepository paymentRepository) {
         this.paymentRepository = paymentRepository;
+        paymentDTO = new PaymentDTO();
     }
 
-    public List<Payment> getPayment() {
-        return paymentRepository.findAll();
+    public String getPayment() {
+        return paymentDTO.getJsonPaymentList(paymentRepository.findAll());
     }
 
     public boolean savePayment(Payment payment) {

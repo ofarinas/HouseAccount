@@ -1,6 +1,5 @@
 package com.example.controllers;
 
-import com.example.entitys.Payment;
 import com.example.entitys.UserAccount;
 import com.example.repository.PaymentRepository;
 import com.example.repository.UserRepository;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
-import java.util.List;
 
 /**
  * Created by Osvaldo on 8/2/2016.
@@ -35,7 +33,7 @@ public class PaymentController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Payment> findAllUsers() {
+    public String findAllUsers() {
         return new PaymentService(paymentRepository).getPayment();
     }
 
